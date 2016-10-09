@@ -1,5 +1,9 @@
 package com.dev.zerty.z_mail.Database;
 
+/**
+ * Created by Zerty on 9/28/2016.
+ */
+
 public class DBStudent {
 
     private int id;

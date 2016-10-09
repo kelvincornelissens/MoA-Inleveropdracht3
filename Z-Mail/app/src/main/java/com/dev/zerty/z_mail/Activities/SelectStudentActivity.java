@@ -73,12 +73,53 @@ public class SelectStudentActivity extends AppCompatActivity{
             }
         });
 
+        showList();
+
+        if(adapter.getItemCount() == 0){
+            insertStudentsIntoDB();
+            showList();
+        }
+        else{
+            showList();
+        }
+    }
+
+    private void showList(){
         retrieve();
         //Set adapter and sort it by firstname (Default)
         CompareValues cv = new CompareValues();
         Collections.sort(students, cv);
         adapter = new MyRecyclerAdapter(this, students, this);
         rv.setAdapter(adapter);
+    }
+
+    private void insertStudentsIntoDB(){
+        for(int i = 0; i < StudentData.studentList().size(); i++){
+            save(StudentData.studentList().get(i).getStudentnumber(),
+                    StudentData.studentList().get(i).getClassname(),
+                    StudentData.studentList().get(i).getImage(),
+                    StudentData.studentList().get(i).getFirstname(),
+                    StudentData.studentList().get(i).getPreposition(),
+                    StudentData.studentList().get(i).getLastname(),
+                    StudentData.studentList().get(i).getZipcode(),
+                    StudentData.studentList().get(i).getPlace(),
+                    StudentData.studentList().get(i).getEmail(),
+                    StudentData.studentList().get(i).getLatitude(),
+                    StudentData.studentList().get(i).getLongitude());
+        }
+    }
+
+    private void save(String studentnumber, String classname, String image, String firstname, String preposition,
+                      String lastname, String zipcode, String place, String email, double latitude, double longitude) {
+        DBAdapter db = new DBAdapter(this);
+        db.openDB();
+        long result = db.addToDB(studentnumber, classname, image, firstname, preposition,
+                lastname, zipcode, place, email, latitude, longitude);
+        if (result > 0) {
+        } else {
+            Toast.makeText(this, "Failed to add...", Toast.LENGTH_SHORT).show();
+        }
+        db.closeDB();
     }
 
     private void retrieve() {

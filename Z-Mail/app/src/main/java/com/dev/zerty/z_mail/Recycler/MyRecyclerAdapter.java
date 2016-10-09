@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -13,12 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dev.zerty.z_mail.Activities.GoogleMapsActivity;
 import com.dev.zerty.z_mail.Database.DBStudent;
 import com.dev.zerty.z_mail.R;
+import com.dev.zerty.z_mail.Students.Student;
 
 import java.util.ArrayList;
 
@@ -86,7 +94,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyViewHolder> implem
         setAnimation(holder.container, pos);
     }
 
-    //Passing the data to the mainactivity
+    //Using sharedprefs to temp set the email in the mainactivity edittext, the sharedpref is cleared in the mainactivity after setting
     private void passEmail(View v, int pos) {
         Intent i = new Intent();
         i.putExtra("EMAIL", students.get(pos).getEmail());
@@ -138,7 +146,22 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyViewHolder> implem
                 pText,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(c, "Opdracht 3", Toast.LENGTH_SHORT).show();
+
+                        Intent i = new Intent(v.getContext(), GoogleMapsActivity.class);
+                        i.putExtra("image", students.get(pos).getImage());
+                        i.putExtra("firstname", students.get(pos).getFirstname());
+                        i.putExtra("pre", students.get(pos).getPreposition());
+                        i.putExtra("lastname", students.get(pos).getLastname());
+                        i.putExtra("studentnumber", students.get(pos).getStudentnumber());
+                        i.putExtra("classname", students.get(pos).getClassname());
+                        i.putExtra("zipcode", students.get(pos).getZipcode());
+                        i.putExtra("place", students.get(pos).getPlace());
+                        i.putExtra("email", students.get(pos).getEmail());
+                        i.putExtra("latitude", students.get(pos).getLatitude());
+                        i.putExtra("longitude", students.get(pos).getLongitude());
+
+                        v.getContext().startActivity(i);
+                        dialog.cancel();
                     }
                 });
 
@@ -155,8 +178,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyViewHolder> implem
         a.show();
     }
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition)
         {

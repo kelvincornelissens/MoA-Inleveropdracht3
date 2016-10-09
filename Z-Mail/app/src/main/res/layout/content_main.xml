@@ -90,7 +90,8 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="top"
-                            android:hint="Message"/>
+                            android:hint="Message"
+                            android:inputType="textCapSentences|textMultiLine" />
 
                     </android.support.design.widget.TextInputLayout>
 

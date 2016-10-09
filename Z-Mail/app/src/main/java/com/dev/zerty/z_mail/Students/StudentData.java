@@ -5,6 +5,9 @@ import com.dev.zerty.z_mail.R;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Created by Zerty on 9/23/2016.
+ */
 public class StudentData {
 
     //List with info about the students

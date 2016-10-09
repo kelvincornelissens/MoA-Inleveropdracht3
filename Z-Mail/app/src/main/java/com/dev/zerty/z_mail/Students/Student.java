@@ -1,5 +1,8 @@
 package com.dev.zerty.z_mail.Students;
 
+/**
+ * Created by Zerty on 9/23/2016.
+ */
 public class Student {
 
     //Fields

@@ -7,6 +7,9 @@ import com.dev.zerty.z_mail.Students.Student;
 
 import java.util.ArrayList;
 
+/**
+ * Created by Zerty on 7/4/2016.
+ */
 public class CustomFilter extends Filter {
 
     MyRecyclerAdapter adapter;

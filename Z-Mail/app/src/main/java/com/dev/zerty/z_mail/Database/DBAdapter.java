@@ -7,6 +7,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ * Created by Zerty on 9/28/2016.
+ */
+
 public class DBAdapter {
     Context c;
     SQLiteDatabase db;

@@ -5,6 +5,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Created by Zerty on 9/28/2016.
+ */
+
 public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {

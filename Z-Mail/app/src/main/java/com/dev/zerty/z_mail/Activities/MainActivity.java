@@ -3,41 +3,27 @@ package com.dev.zerty.z_mail.Activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.dev.zerty.z_mail.Database.DBAdapter;
-import com.dev.zerty.z_mail.Database.DBStudent;
 import com.dev.zerty.z_mail.R;
-import com.dev.zerty.z_mail.Recycler.MyViewHolder;
-import com.dev.zerty.z_mail.Students.Student;
 import com.dev.zerty.z_mail.Students.StudentData;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText etEmail;
-    private TextInputLayout inEmail;
     private EditText etSubject;
     private EditText etMessage;
 
@@ -57,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Init controls
         etEmail = (EditText) findViewById(R.id.etEmail);
-        etEmail.setSingleLine(true);
         etEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,11 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         etSubject = (EditText) findViewById(R.id.etSubject);
         etMessage = (EditText) findViewById(R.id.etMessage);
-
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
         //If all fields are not empty it'll open a email app of choice
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,42 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Calling a method
         getExtraFromOpener();
-
-    }
-
-    //I used to only use the students package and then later used a database, I used a forloop to insert it all into the db
-    //Only used once
-    private void insertStudentsIntoDB(){
-//        for(int i = 0; i < StudentData.studentList().size(); i++){
-//            save(StudentData.studentList().get(i).getStudentnumber(),
-//                    StudentData.studentList().get(i).getClassname(),
-//                    StudentData.studentList().get(i).getImage(),
-//                    StudentData.studentList().get(i).getFirstname(),
-//                    StudentData.studentList().get(i).getPreposition(),
-//                    StudentData.studentList().get(i).getLastname(),
-//                    StudentData.studentList().get(i).getZipcode(),
-//                    StudentData.studentList().get(i).getPlace(),
-//                    StudentData.studentList().get(i).getEmail(),
-//                    StudentData.studentList().get(i).getLatitude(),
-//                    StudentData.studentList().get(i).getLongitude());
-//        }
-    }
-
-    //Only used once
-    private void save(String studentnumber, String classname, String image, String firstname, String preposition,
-                      String lastname, String zipcode, String place, String email, double latitude, double longitude) {
-//        DBAdapter db = new DBAdapter(this);
-//        db.openDB();
-//        long result = db.addToDB(studentnumber, classname, image, firstname, preposition,
-//                lastname, zipcode, place, email, latitude, longitude);
-//        int a = 0;
-//        int b = 0;
-//        if (result > 0) {
-//            Toast.makeText(this, "Successfully Added", Toast.LENGTH_SHORT).show();
-//        } else {
-//            Toast.makeText(this, "Failed to add...", Toast.LENGTH_SHORT).show();
-//        }
-//        db.closeDB();
     }
 
     //If the app is opened from another app ("android.intent.action.SEND") it will check for extra info and set it
@@ -341,7 +289,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(this, "No student has been selected...", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "No student has been selected...", Toast.LENGTH_SHORT).show();
+                //Nothing, no result
             }
         }
     }
@@ -367,14 +316,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
-                //MainActivity.this.setTheme(R.style.DarkTheme);
-                //inEmail.setHintTextAppearance(R.style.CustomHintEnabled);
-                RelativeLayout rl = (RelativeLayout) findViewById(R.id.mainLayout);
-                rl.setBackgroundColor(Color.DKGRAY);
-                etEmail.setTextColor(Color.WHITE);
-                etSubject.setTextColor(Color.WHITE);
-                etMessage.setTextColor(Color.WHITE);
-
                 return true;
 
             case R.id.action_student:
